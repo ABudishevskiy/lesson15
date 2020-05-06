@@ -32,22 +32,18 @@ class myClassMethod(object):
          if owner is None:
              owner = type(instance)
          def nnew_func(*args):
-             if owner == N:
-                     print('aaa')
-                     self.method(owner)
-                     return self.method
-             print('bbb')
-             self.method(owner)
-             return self.method
+             print(owner)
+             print(self.method)
+             if issubclass(owner, N):
+                 return self.method(owner)
+             return owner.__name__ + "aaa"
          return nnew_func
 
 class C:
     @myClassMethod
     def nfunc(cls, *args):
-        if cls == N:
-            print('hello aaa')
-        if cls == D:
-            print('hello bbb')
+        print(cls.__name__)
+
         return 13
 
 class N(C):
@@ -57,5 +53,6 @@ class D(C):
 k = N()
 l = D()
 print(k.nfunc())
-print(k.nfunc(D))
 print(l.nfunc())
+print(N.nfunc())
+print(D.nfunc())
